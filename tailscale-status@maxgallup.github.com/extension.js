@@ -422,7 +422,7 @@ function cmdTailscale({args, unprivileged = true, addLoginServer = true}) {
 function cmdTailscaleRecFiles() {
     try {
         let proc = Gio.Subprocess.new(
-            ["pkexec", "tailscale", "file", "get", downloads_path],
+            ["tailscale", "file", "get", downloads_path],
             Gio.SubprocessFlags.STDOUT_PIPE | Gio.SubprocessFlags.STDERR_PIPE
         );
         proc.communicate_utf8_async(null, null, (proc, res) => {
