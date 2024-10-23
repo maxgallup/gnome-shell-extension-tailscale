@@ -316,7 +316,14 @@ function cmdTailscaleSwitchList(unprivileged  = true) {
                         }
                         let accountItem = new PopupMenu.PopupMenuItem(account)
                         accountItem.connect('activate', () => {
-                            cmdTailscaleSwitch(account)
+                            // find the mail address in the account string
+                            const emailRegex = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/;
+                            const email = account.match(emailRegex);
+                            if (email == null) {
+                                myError("failed to extract email from account string")
+                                return
+                            }
+                            cmdTailscaleSwitch(email[0]);
                         });
                         accountsMenu.menu.addMenuItem(accountItem);
                     });
